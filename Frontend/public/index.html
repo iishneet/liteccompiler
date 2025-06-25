@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>C Code Runner</title>
+    <style>
+      body {
+        background: #ffffff;
+        color: #222222;
+        font-family: monospace;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      textarea {
+        width: 80%;
+        height: 300px;
+        background: #f8f8f8;
+        color: #222;
+        border: 1px solid #ccc;
+        padding: 1rem;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+      button {
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        background: #007acc;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #005f99;
+      }
+      pre {
+        width: 80%;
+        background: #f2f2f2;
+        color: #111;
+        padding: 1rem;
+        margin-top: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Run C Code</h2>
+    <textarea id="code">
+
+
+int main() {
+    int a = 10, b = 5;
+    int c = a + b;
+    int d = a / b;
+    printf("a + b = %d\n", c);
+    printf("a / b = %d\n", d);
+    if (c == 15) {
+        printf("Correct sum!\n");
+        int z = c * d;
+        printf("z = %d\n", z);
+    } else {
+        printf("Wrong\n");
+    }
+    return 0;
+}
+  </textarea
+    >
+    <button onclick="runCode()">Run</button>
+    <pre id="output">Waiting for execution...</pre>
+
+    <script>
+      async function runCode() {
+        const code = document.getElementById("code").value;
+        document.getElementById("output").textContent = "⏳ Running...";
+        try {
+          const response = await fetch("/run", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code }),
+          });
+          const output = await response.text();
+          document.getElementById("output").textContent = output;
+        } catch (err) {
+          document.getElementById("output").textContent =
+            "Error: " + err.message;
+        }
+      }
+    </script>
+  </body>
+</html>
