@@ -1,2 +1,1 @@
-# liteccompiler
-We have devloped a lite c compiler which can perform basic operation arithmetic and loop and if else and also it is compatible in phone tooo.
+We have devloped a lite c compiler which can perform basic arithmetic operation  ,print operation  and conditional statements (if-else) and also it is compatible on different screen sizes (phone,laptop)
